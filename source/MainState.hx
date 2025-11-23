@@ -200,14 +200,20 @@ class MainState extends FlxState
         @:privateAccess
 		FlxG.save.bind('Flixel-HScript', FlxG.stage.application.meta.get('company') + '/' + FlxSave.validate(FlxG.stage.application.meta.get('file')));
 
+	
         Paths.folder = FlxG.save.data.flixelhscriptsavedataselectedproject ?? '?';
 
+	#if DIRECT_GAME_FOLDER
+		var folder:String = "project";
+	#else
+		var folder:String = "projects" + Paths.folder;
+	#end
+		
         loadGameMetadata();
         
-        if (FileSystem.exists('projects/' + Paths.folder) && FileSystem.isDirectory('projects/' + Paths.folder))
+        if (FileSystem.exists(folder) && FileSystem.isDirectory(folder))
             FlxG.switchState(() -> new backend.CustomState('Main'));
-        else
-            FlxG.switchState(() -> new ProjectsState());
+        else if(folder != "project") FlxG.switchState(() -> new ProjectsState());
     }
 
     function loadGameMetadata()
