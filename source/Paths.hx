@@ -216,7 +216,7 @@ class Paths
     public static inline function getPath(file:String, missingPrint:Bool = true):String
     {
         if (fileExists(file))
-            return 'projects/' + folder + '/' + file;
+            return getProjectFolder() + '/' + file;
 
         if (missingPrint)
             Sys.println('[MISSING FILE] ' + file);
@@ -226,11 +226,20 @@ class Paths
 
     public static inline function fileExists(path:String):Bool
     {
-        if (FileSystem.exists('projects/' + folder + '/' + path))
+        if (FileSystem.exists(getProjectFolder() + '/' + path))
             return true;
         
         return false;
     }
+
+	public static inline function getProjectFolder():String
+    {
+        #if DIRECT_GAME_FOLDER
+			return 'project';
+		#else
+			return 'projects/' + folder;
+		#end	
+	}
 
     public static function clearEngineCache()
     {
