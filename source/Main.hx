@@ -120,6 +120,7 @@ class Main extends Sprite
     
     function onKeyPressed(event:KeyboardEvent)
     {
+		#if (!DIRECT_GAME_FOLDER)
         if (FlxG.keys.pressed.CONTROL && FlxG.keys.pressed.SHIFT)
         {
 			if (event.keyCode == FlxKey.M)
@@ -130,5 +131,6 @@ class Main extends Sprite
 				FlxG.switchState(() -> new ProjectsState());
 			}
         }
+		#end
     }
 }
