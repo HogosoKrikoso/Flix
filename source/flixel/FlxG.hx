@@ -711,6 +711,13 @@ class FlxG
 		return value;
 	}
 
+	static function set_framerate(value:Int):Int
+	{
+		set_drawFramerate(value);
+		set_updateFramerate(value);
+		return value;
+	}
+	
 	static function get_fullscreen():Bool
 	{
 		return stage.displayState == StageDisplayState.FULL_SCREEN || stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE;
